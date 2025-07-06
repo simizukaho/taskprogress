@@ -1,0 +1,12 @@
+<h1>taskprogress</h1>
+<h3>一覧ページ</h3>
+<%= link_to "新規投稿へ", new_tweet_path %>
+<div class="tweets-container">
+  <% @tweets.each do |t| %>
+    <div class="tweet">
+      <%= t.name %>
+      <%= t.title %>
+      <%= t.user_id %>
+    </div>
+  <% end %>
+</div>

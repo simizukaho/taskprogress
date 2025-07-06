@@ -1,0 +1,23 @@
+<h1>(taskprogress)</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @tweet do |f| %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :size => 50 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_id  %>
+    <%= f.number_field :user_id, :size => 10 %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", tweets_path %>
