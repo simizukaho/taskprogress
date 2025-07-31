@@ -1,12 +1,76 @@
-<h1>taskprogress</h1>
-<h3>一覧ページ</h3>
+<h1>一覧ページ</h1>
 <%= link_to "新規投稿へ", new_tweet_path %>
 <div class="tweets-container">
+
+<% if user_signed_in? %>
+  <%= link_to "マイページへ", user_path(current_user.id) %>
+<% end %>
+
   <% @tweets.each do |t| %>
     <div class="tweet">
+      <%= link_to t.user.name, user_path(t.user.id) %>
       <%= t.name %>
       <%= t.title %>
-      <%= t.user_id %>
+      <%= link_to "詳細へ", tweet_path(t.id) %>
+      <% if user_signed_in? && current_user.id == t.user_id %>
+        <%= link_to "編集する", edit_tweet_path(t.id) %>
+        <%= button_to "削除する", tweet_path(t.id), method: :delete %>
+      <% end %>  
+
+ <% if user_signed_in? %>
+      <% if current_user.already_liked?(t) %>
+       <% like = t.likes.find_by(user_id: current_user.id) %>
+        <%= link_to tweet_like_path(t, like), data: { turbo_method: :delete } do %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+          
+        <% end %>
+      <% else %>
+        <%= link_to tweet_likes_path(t), data: { turbo_method: :post }  do %>
+            <i class="far fa-heart"></i><%= t.likes.count %>
+        
+        <% end %>
+      <% end %>
+    <% else %>
+        <i class="far fa-heart"></i><%= t.likes.count %>
+      <p>いいねの数 = </p><%= t.likes.count %>
+    <% end %>
+      
+</div>
+
+<h3>いいねしたユーザー</h3>
+<% t.liked_users.each do |user| %>
+  <li><%= user.name %></li>
+<% end %>
+
+
+<div class="comment-wrapper">
+  <p>コメント一覧</p>
+  <% t.comments.each do |c| %>
+    <div>
+      <%= c.user.name unless c.user.blank? %>
+      <%= c.content %>
+
+      <% if user_signed_in? && current_user.id == c.user_id %>
+        <%= button_to "削除", tweet_comment_path(t, c), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+      <% end %>
+    </div>
+      <br>
+  <% end %>
+
+    <% if user_signed_in? %>
+    <%= form_with(model: [t, Comment.new], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+
+      <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+      
     </div>
   <% end %>
 </div>
