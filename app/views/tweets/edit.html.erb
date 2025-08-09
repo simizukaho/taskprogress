@@ -1,10 +1,8 @@
 <%= form_for @tweet do |f| %>
-  <p><%= f.label :name %></p>
-  <p><%= f.text_field :name, :size => 140 %></p> 
-
-  <p><%= f.label :title %></p>
+ 
+  <p><%= f.label :title, '課題内容' %></p>
   <p><%= f.text_field :title, :size => 140 %></p> 
-  <%= f.submit "編集する" %>
+  <%= link_to "Tweet一覧に戻る", tweets_path %>
 <% end %>
 
 

@@ -2,6 +2,9 @@
 <div class="tweet">
 
 <p><%= @tweet.title %></p>
+<% if user_signed_in? && current_user.id == @tweet.user_id %>
+        <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+<% end %>  
   
 
 <!-- タスク追加フォーム -->
@@ -25,7 +28,7 @@
 <!-- 編集ボタン -->
   <%= link_to "編集", edit_tweet_task_path(@tweet, task) %>
   <!-- 削除ボタン（確認あり） -->
-      <%= button_to "削除", tweet_task_path(@tweet, task),
+  <%= button_to "削除", tweet_task_path(@tweet, task),
                 method: :delete,
                 data: { confirm: "本当に削除しますか？" } %>
     </li>
@@ -37,12 +40,10 @@
       <% if current_user.already_liked?(@tweet) %>
         <%= link_to tweet_like_path(@tweet), data: { turbo_method: :delete } do %>
             <i class="fas fa-heart"></i><%= @tweet.likes.count %>
-          <p>いいねを取り消す</p>
         <% end %>
       <% else %>
         <%= link_to tweet_likes_path(@tweet), data: { turbo_method: :post }  do %>
             <i class="far fa-heart"></i><%= @tweet.likes.count %>
-          <p>いいね</p>
         <% end %>
       <% end %>
     <% else %>

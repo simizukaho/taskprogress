@@ -2,16 +2,11 @@
 <%= form_for @tweet do |f| %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, :size => 30 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :title %>
+    <%= f.label :title, '課題内容' %>
     <%= f.text_field :title, :size => 50 %>
   </div>
 
   <%= f.submit "投稿する" %>
 <% end %>
 
-<%= link_to "一覧に戻る", tweets_path %>
+<%= link_to "Tweet一覧に戻る", tweets_path %>

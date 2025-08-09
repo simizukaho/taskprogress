@@ -1,0 +1,78 @@
+ja:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      inclusion: "は一覧にありません"
+      exclusion: "は予約されています"
+      invalid: "は不正な値です"
+      confirmation: "と確認用が一致しません"
+      accepted: "を承認してください"
+      empty: "を入力してください"
+      blank: "を入力してください"
+      too_long: "%{count}文字以内で入力してください"
+      too_short: "%{count}文字以上で入力してください"
+      wrong_length: "%{count}文字で入力してください"
+      not_a_number: "は数値で入力してください"
+      not_an_integer: "は整数で入力してください"
+      greater_than: "%{count}より大きい値にしてください"
+      greater_than_or_equal_to: "%{count}以上の値にしてください"
+      equal_to: "%{count}と同じ値にしてください"
+      less_than: "%{count}より小さい値にしてください"
+      less_than_or_equal_to: "%{count}以下の値にしてください"
+      other_than: "%{count}以外の値にしてください"
+      even: "は偶数で入力してください"
+      odd: "は奇数で入力してください"
+      not_saved:
+        one: "%{resource}にエラーが1件あります。保存できませんでした。"
+        other: "%{resource}にエラーが%{count}件あります。保存できませんでした。"
+
+  activerecord:
+    models:
+      user: "ユーザー"
+
+    attributes:
+      user:
+        name: "お名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+        current_password: "現在のパスワード"
+        profile: "プロフィール"
+
+  devise:
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_in: "既にログインしています。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      updated: "アカウント情報を更新しました。"
+      destroyed: "アカウントを削除しました。"
+      signed_up_but_unconfirmed: "登録は完了しましたが、メールでの確認が必要です。"
+      signed_up_but_locked: "アカウントはロックされています。"
+      signed_up_but_inactive: "アカウントは無効です。"
+    passwords:
+      send_instructions: "パスワード再設定の案内メールを送信しました。"
+      updated: "パスワードが変更されました。"
+      updated_not_active: "パスワードが変更されましたが、アカウントはまだ有効化されていません。"
+    confirmations:
+      send_instructions: "確認用メールを送信しました。"
+      confirmed: "アカウントが確認されました。"
+      already_confirmed: "アカウントは既に確認済みです。"
+    unlocks:
+      send_instructions: "アカウントロック解除の案内メールを送信しました。"
+      unlocked: "アカウントのロックを解除しました。"
+    failure:
+      unauthenticated: "ログインしてください。"
+      invalid: "無効なメールアドレスまたはパスワードです。"
+      locked: "アカウントがロックされています。"
+      last_attempt: "残り1回のログイン試行です。"
+      inactive: "アカウントが有効化されていません。"
+      expired: "セッションの期限が切れました。再度ログインしてください。"
+      timeout: "セッションがタイムアウトしました。再度ログインしてください。"
+
+  helpers:
+    submit:
+      create: "%{model}を作成する"
+      update: "%{model}を更新する"
+      submit: "登録する"

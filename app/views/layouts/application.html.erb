@@ -20,6 +20,20 @@
   </head>
 
   <body>
+    <header>
+      <h1>Task progress</h1>
+      <div class="header-list">
+      <ul>
+        <li><%= link_to "ホーム", tweets_path %></li>
+        <li><%= link_to "新規投稿",new_tweet_path %></li>
+      </ul>
+      </div>
+    </header>
+    <main>
     <%= yield %>
+    <main>
+    <footer>
+      <p>Copyright © GeekSalon All Rights Reserved.</p>
+    </footer>
   </body>
 </html>
