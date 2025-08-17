@@ -11,6 +11,14 @@ module Original
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
 
+    # 日本語をデフォルトの言語に設定
+    config.i18n.default_locale = :ja
+
+    
+    # タイムゾーンを日本時間に設定
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.

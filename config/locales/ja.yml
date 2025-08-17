@@ -2,6 +2,8 @@ ja:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      not_found: "見つかりませんでした"
+      taken: "はすでに存在します"
       inclusion: "は一覧にありません"
       exclusion: "は予約されています"
       invalid: "は不正な値です"
@@ -38,6 +40,8 @@ ja:
         password_confirmation: "パスワード（確認）"
         current_password: "現在のパスワード"
         profile: "プロフィール"
+
+    
 
   devise:
     sessions:

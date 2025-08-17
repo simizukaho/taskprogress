@@ -1,0 +1,7 @@
+ja:
+  errors:
+    messages:
+      not_saved: "%{resource}にエラーが%{count}件あります。"
+      password_too_short: "パスワードが短すぎます（最低%{count}文字）"
+      confirmation: "パスワード（確認）と一致しません"
+      current_password_blank: "現在のパスワードを入力してください"

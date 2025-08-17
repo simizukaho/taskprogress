@@ -1,84 +1,62 @@
 <h2>課題内容</h2>
-<div class="tweet">
 
-<p><%= @tweet.title %></p>
 <% if user_signed_in? && current_user.id == @tweet.user_id %>
-        <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
-<% end %>  
-  
-
-<!-- タスク追加フォーム -->
-<%= form_with(model: [@tweet, Task.new], local: true) do |f| %>
-  <%= f.text_field :content, placeholder: "タスク詳細" %>
-  <%= f.submit "追加" %>
+  <!-- 入力フォーム：ページ読み込み時から表示 -->
+  <input type="text" 
+         id="tweet-title-input"
+         value="<%= @tweet.title %>" 
+         data-tweet-id="<%= @tweet.id %>" 
+         class="editable-title-input">
+  <p id="save-status" style="color: gray; font-size: 0.9em;"></p>
+<% else %>
+  <!-- 他ユーザーには表示のみ -->
+  <p><%= @tweet.title %></p>
 <% end %>
 
-<!-- タスク一覧 -->
-<ul>
+<ul class="task-list">
   <% @tweet.tasks.each do |task| %>
     <li>
-      <%= form_with(model: [@tweet, task], method: :patch, local: true) do |f| %>
+      <%= form_with(model: [@tweet, task], method: :patch, html: { class: "task-update-form" }) do |f| %>
         <%= f.check_box :done, { onchange: "this.form.submit();" } %>
-        <%= task.content %>
-        <%# <% if task.done %>
-          <%# :チェックマーク_緑: %>
-        <%# <% end %>
+
+        <!-- ✅ 編集可能なタスク名 -->
+        <%= f.text_field :content, 
+              value: task.content, 
+              class: "task-content-input", 
+              data: { task_id: task.id } %>
       <% end %>
 
-<!-- 編集ボタン -->
-  <%= link_to "編集", edit_tweet_task_path(@tweet, task) %>
-  <!-- 削除ボタン（確認あり） -->
-  <%= button_to "削除", tweet_task_path(@tweet, task),
-                method: :delete,
-                data: { confirm: "本当に削除しますか？" } %>
+      <% if user_signed_in? && current_user.id == @tweet.user_id %>
+        <!-- 削除ボタンのみ表示 -->
+        <%= button_to "削除", tweet_task_path(@tweet, task),
+                      method: :delete,
+                      data: { confirm: "本当に削除しますか？" },
+                      class: "btn small-btn delete-btn" %>
+      <% end %>
     </li>
   <% end %>
 </ul>
 
-  
-    <% if user_signed_in? %>
-      <% if current_user.already_liked?(@tweet) %>
-        <%= link_to tweet_like_path(@tweet), data: { turbo_method: :delete } do %>
-            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
-        <% end %>
-      <% else %>
-        <%= link_to tweet_likes_path(@tweet), data: { turbo_method: :post }  do %>
-            <i class="far fa-heart"></i><%= @tweet.likes.count %>
-        <% end %>
-      <% end %>
-    <% else %>
-        <i class="far fa-heart"></i><%= @tweet.likes.count %>
-      <p>いいねの数 = </p><%= @tweet.likes.count %>
-    <% end %>
-</div>
+<!-- ✅ タスク追加ボタンとフォーム表示コンテナ -->
+<% if user_signed_in? && current_user.id == @tweet.user_id %>
+  <button type="button" id="show-new-task-form" class="btn add-btn">＋ タスクを追加</button>
 
-<h2>いいねしたユーザー</h2>
-<% @tweet.liked_users.each do |user| %>
-  <li><%= user.name %></li>
+   <!-- 複数フォームを入れるコンテナ -->
+  <div id="task-forms-container"></div>
+
+
+  <div id="new-task-form" style="display: none; margin-top: 10px;">
+    <%= form_with(model: [@tweet, Task.new], local: true) do |f| %>
+      <%= f.text_field :content, placeholder: "新しいタスク", class: "task-input" %>
+      <%= f.submit "登録", class: "btn submit-btn" %>
+    <% end %>
+  </div>
 <% end %>
 
+<!-- 戻るボタン群 -->
+  <div class="button-container">
+<%= link_to "前のページに戻る", user_path(current_user), class: "btn back-btn" %>
+<%= link_to "Tweet一覧に戻る", tweets_path, class: "list-btn btn" %>
+  </div>
 
 
-<div class="comment-wrapper">
-  <p>コメント一覧</p>
-  <% @comments.each do |c| %>
-    <div>
-      <%= c.user.email unless c.user.blank? %>
-      <br>
-      <%= c.content %>
-    </div>
-      <br>
-  <% end %>
-
-    <% if user_signed_in? %>
-    <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
-      <%= f.text_area :content %>
-      <%= button_tag type: "submit" do %>
-        <i class="far fa-comments"></i> コメントする
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
-
-
-<%= link_to "Tweet一覧に戻る", tweets_path %>

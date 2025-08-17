@@ -1,33 +1,31 @@
+<%= stylesheet_link_tag 'index', :media => "all" %>
+
 <h1>一覧ページ</h1>
-<%= link_to "新規投稿へ", new_tweet_path %>
+
 <div class="tweets-container">
-
-<% if user_signed_in? %>
-  <%= link_to "マイページへ", user_path(current_user.id) %>
-<% end %>
-
   <% @tweets.each do |t| %>
-    <div class="tweet">
-      <%= link_to t.user.name, user_path(t.user.id) %>
-      <%= t.name %>
-      <%= t.title %>
-      <% if user_signed_in? && current_user.id == t.user_id %>
-        <%= link_to "編集する", edit_tweet_path(t.id) %>
-      <%= link_to "詳細へ", tweet_path(t.id) %>
-        <%= button_to "削除する", tweet_path(t.id), method: :delete %>
-      <% end %>  
+    <div class="tweet-card">
+      <div class="tweet-main">
+      <p class="tweet-user"><%= link_to t.user.name, user_path(t.user.id) %></p>
+      <p class="tweet-date">投稿日: <%= t.created_at.strftime("%Y年%m月%d日 %H:%M") %></p>
+      <p class="tweet-name"><%= t.name %></p>
+      <h3 class="tweet-title"><%= t.title %></h3>
 
+      <%# if user_signed_in? && current_user.id == t.user_id %>
+      <%= link_to "詳細へ", tweet_path(t.id), class: "detail-btn" %>
+      <%# end %>  
+</div>
+
+<div class="tweet-actions">
  <% if user_signed_in? %>
       <% if current_user.already_liked?(t) %>
        <% like = t.likes.find_by(user_id: current_user.id) %>
-        <%= link_to tweet_like_path(t, like), data: { turbo_method: :delete } do %>
-            <i class="fas fa-heart"></i><%= t.likes.count %>
-          
+        <%= link_to tweet_like_path(t, like), data: { turbo_method: :delete }, class: "like-btn" do %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>          
         <% end %>
       <% else %>
-        <%= link_to tweet_likes_path(t), data: { turbo_method: :post }  do %>
-            <i class="far fa-heart"></i><%= t.likes.count %>
-        
+        <%= link_to tweet_likes_path(t), data: { turbo_method: :post }, class: "like-btn" do %>
+            <i class="far fa-heart"></i><%= t.likes.count %>        
         <% end %>
       <% end %>
     <% else %>
@@ -35,42 +33,35 @@
       <p>いいねの数 = </p><%= t.likes.count %>
     <% end %>
       
+
+<button type="button" class="toggle-comment" data-tweet-id="<%= t.id %>">
+  <i class="fa-regular fa-comment"></i> <%= t.comments.count %>
+</button>
 </div>
 
-<h3>いいねしたユーザー</h3>
-<% t.liked_users.each do |user| %>
-  <li><%= user.name %></li>
-<% end %>
-
-
-<div class="comment-wrapper">
-  <p>コメント一覧</p>
-  <% t.comments.each do |c| %>
-    <div>
-      <%= c.user.name unless c.user.blank? %>
-      <%= c.content %>
-
-      <% if user_signed_in? && current_user.id == c.user_id %>
-        <%= button_to "削除", tweet_comment_path(t, c), method: :delete, data: { confirm: "本当に削除しますか？" } %>
-      <% end %>
-    </div>
-      <br>
+<div class="comment-wrapper" id="comment-<%= t.id %>" style="display: none;">
+  <% if t.comments.any? %>
+    <% t.comments.each do |c| %>
+      <div class="comment">
+        <strong><%= c.user.name unless c.user.blank? %>:</strong> <%= c.content %>
+        <% if user_signed_in? && current_user.id == c.user_id %>
+          <%= button_to "削除", tweet_comment_path(t, c), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "comment-delete-btn" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>まだコメントはありません。</p>
   <% end %>
 
-    <% if user_signed_in? %>
+  <% if user_signed_in? %>
     <%= form_with(model: [t, Comment.new], local: true) do |f| %>
-      <%= f.text_area :content %>
-      <%= button_tag type: "submit" do %>
-        <i class="far fa-comments"></i> コメントする
-      
+      <%= f.text_area :content, placeholder: "コメントを入力" %>
+      <%= button_tag type: "submit", class: "comment-submit-btn" do %>
+        <i class="far fa-comments"></i> コメントする        
       <% end %>
     <% end %>
   <% end %>
 </div>
-
-
-      <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
-      
-    </div>
-  <% end %>
+</div>
+<% end %>
 </div>

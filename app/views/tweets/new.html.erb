@@ -1,12 +1,17 @@
-<h1>新規投稿ページ</h1>
-<%= form_for @tweet do |f| %>
+<%= stylesheet_link_tag 'new', :media => "all" %>
 
-  <div class="field">
-    <%= f.label :title, '課題内容' %>
-    <%= f.text_field :title, :size => 50 %>
+<h1 class="page-title">新規投稿ページ</h1>
+
+<div class="card-container">
+<%= form_for @tweet do |f| %>
+<div class="form-group">
+    <%= f.label :title, '課題内容', class: "form-label" %>
+    <%= f.text_field :title, class: "form-input" %>
   </div>
 
-  <%= f.submit "投稿する" %>
+<div class="form-actions">
+  <%= f.submit "投稿する", class: "btn submit-btn" %>
+  <%= link_to "Tweet一覧に戻る", tweets_path, class: "btn back-btn" %>
+</div>
 <% end %>
-
-<%= link_to "Tweet一覧に戻る", tweets_path %>
+</div>

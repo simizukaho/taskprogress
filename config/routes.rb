@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "home/index"
   devise_for :users
   resources :users, only: [:show] 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -21,7 +22,13 @@ Rails.application.routes.draw do
   #root 'tweets#index'
 
   get 'hello/index' => 'hello#index'
-  root 'hello#index'
+  #root 'hello#index'
+  #root to: 'home#index'
+
+  get 'about', to: 'static_pages#about'
+
+  get '/about', to: 'pages#about'
+  root to: 'static_pages#about'
 
   resources :tweets do
     resources :tasks, only: [:create, :update, :edit, :destroy]

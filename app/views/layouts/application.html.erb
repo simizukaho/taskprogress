@@ -17,6 +17,8 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+   
+
   </head>
 
   <body>
@@ -24,16 +26,34 @@
       <h1>Task progress</h1>
       <div class="header-list">
       <ul>
-        <li><%= link_to "ホーム", tweets_path %></li>
-        <li><%= link_to "新規投稿",new_tweet_path %></li>
+        <li><%= link_to "ホーム", about_path %></li>
+        
+        <% if user_signed_in? %>
+         <li><%= link_to "一覧ページ",tweets_path %></li>
+         <li><%= link_to "マイページ", user_path(current_user) %></li>
+         <li><%= link_to "新規投稿",new_tweet_path %></li>
+         
+         
+       <% else %>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+        
+       <% end %>
+</ul>
       </ul>
       </div>
     </header>
+
     <main>
-    <%= yield %>
-    <main>
+    <%= yield %>  <!-- ここに各ページの内容が入る -->
+    </main>
+
     <footer>
       <p>Copyright © GeekSalon All Rights Reserved.</p>
     </footer>
+
+
+
+ 
+    
   </body>
-</html>
+</html> 

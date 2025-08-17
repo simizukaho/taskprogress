@@ -13,7 +13,11 @@
 
 <div class="field">
 <%= f.label :パスワード %><br />
-<%= f.password_field :password, autocomplete: "current-password" %>
+<%= f.password_field :password, autocomplete: "current-password", id: "password_field" %><br />
+
+<label>
+    <input type="checkbox" onclick="togglePassword()"> パスワードを表示
+</label>
 </div>
 
 <% if devise_mapping.rememberable? %>
@@ -31,3 +35,11 @@
 <%= render "users/shared/links" %>
 </div>
 </div>
+
+<!-- パスワード表示切り替え用JavaScript -->
+<script>
+  function togglePassword() {
+    const field = document.getElementById("password_field");
+    field.type = (field.type === "password") ? "text" : "password";
+  }
+</script>

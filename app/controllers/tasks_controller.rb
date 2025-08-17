@@ -27,6 +27,37 @@ before_action :set_tweet
       redirect_to tweet_path(@tweet), notice: "タスクを削除しました"
   end
 
+  def update
+  @tweet = Tweet.find(params[:tweet_id])
+  @task = @tweet.tasks.find(params[:id])
+  if @task.update(task_params)
+    respond_to do |format|
+      format.html { redirect_to tweet_path(@tweet), notice: '更新されました' }
+      format.json { render json: { status: 'ok' } }
+    end
+  else
+    respond_to do |format|
+      format.html { render :edit }
+      format.json { render json: { status: 'error' }, status: :unprocessable_entity }
+    end
+  end
+end
+
+def update
+  @task = Task.find(params[:id])
+  if @task.update(task_params)
+    respond_to do |format|
+      format.html { redirect_to @task.tweet }
+      format.json { render json: { status: 'ok' } }
+    end
+  else
+    respond_to do |format|
+      format.html { render :edit }
+      format.json { render json: { status: 'error' }, status: :unprocessable_entity }
+    end
+  end
+end
+
   private
   def set_tweet
     @tweet = Tweet.find(params[:tweet_id])
@@ -35,3 +66,4 @@ before_action :set_tweet
     params.require(:task).permit(:content, :done)
   end
 end
+
