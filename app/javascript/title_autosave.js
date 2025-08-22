@@ -17,21 +17,27 @@ document.addEventListener("turbo:load", () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+            "Accept": "text/vnd.turbo-stream.html"
           },
-          body: JSON.stringify({ tweet: { title: newTitle } })
+          body: JSON.stringify({ tweet: { title: newTitle } }),
+          credentials: 'same-origin'
         })
           .then(response => {
             if (response.ok) {
-              status.textContent = "保存されました";
-            } else {
-              status.textContent = "保存に失敗しました";
-            }
+              return response.text(); 
+            } else {      
+              throw new Error("保存に失敗しました");
+             }
           })
-          .catch(() => {
+          .then(turboStreamHTML => {
+            status.textContent = "保存されました";
+          })
+          .catch(err => {
+            console.error(err.message);
             status.textContent = "通信エラー";
           });
-      }, 1000); // 1秒間入力が止まったら保存
+      }, 1000);
     });
   }
 });

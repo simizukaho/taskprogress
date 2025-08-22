@@ -1,17 +1,77 @@
-<h1>サイトについて</h1>
+<%= stylesheet_link_tag 'about', media: 'all' %>
 
-<p>このサイトは○○を目的として作られています。</p>
-<p>使い方は以下の通りです。</p>
+<div class="intro-overlay">
+  <div class="intro-text">Task Scope</div>
+</div>
 
-<h2>特徴</h2>
-<ul>
-  <li>特徴1</li>
-  <li>特徴2</li>
-  <li>特徴3</li>
-</ul>
+<section class="home-hero">
+  <h1>大学生の「やること」、<br><span class="highlight">見える化しよう。</span></h1>
+  <p>小さな一歩で、課題がグッと近づく。</p>
+  <%= link_to "無料で始める", new_user_registration_path, class: "btn btn-primary btn-large" %>
+</section>
 
-<h2>よくある質問</h2>
-<p>Q: ○○とは？<br>A: △△です。</p>
+<div class="ribbon-banner">
+  <div class="ribbon-text">
+    ✨ Task Scope  ✨ やること見える化  ✨ 小さな一歩  ✨ Task Scope  ✨ やること見える化  ✨ 小さな一歩  ✨ Task Scope  ✨ やること見える化  ✨ 小さな一歩 
+  </div>
+</div>
 
-<h2>お問い合わせ</h2>
-<p>メール: example@example.com</p>
+
+<section class="about-site-plain">
+  <p>
+    このサイトは、大学生のためのタスク管理ツールです。<br>
+    課題ややるべきことを<strong>「見える化」</strong>して、<br>
+    ひとつひとつの進捗をチェックしながら進められます。
+  </p>
+  <p>
+    <strong>勉強だけじゃなく、就活の準備や日常の小さなタスクまで、<br>あなたが「これは課題だ」と思うことなら何でも管理できます。</strong>
+  </p>
+</section>
+
+<section class="features-grid">
+  <div class="feature-card diagonal-card blue">
+    <div class="card-content">
+      <h3>タスクの細分化</h3>
+      <p>課題を細かくタスクに分けて記録できるので、効率よく進められます。</p>
+    </div>
+  </div>
+
+  <div class="feature-card diagonal-card green">
+    <div class="card-content">
+      <h3>達成感の実感</h3>
+      <p>完了したタスクにチェックをつけて、モチベーションアップ。</p>
+    </div>
+  </div>
+
+  <div class="feature-card diagonal-card pink">
+    <div class="card-content">
+      <h3>投稿機能</h3>
+      <p>他の学生のタスク分解例を参考にできる投稿機能。</p>
+    </div>
+  </div>
+
+  <div class="feature-card diagonal-card orange">
+    <div class="card-content">
+      <h3>コミュニケーション</h3>
+      <p>コメントやいいねでやる気を高め合える。</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="recommendation">
+  <h3>📚 こんな人におすすめ</h3>
+  <ul>
+    <li>・「課題に手がつかない」と悩んでいる人</li>
+    <li>・細かく計画を立てて効率よく進めたい人</li>
+    <li>・他の人の進め方を参考にしたい人</li>
+    <li>・勉強だけじゃなく生活の整理もしたい人</li>
+  </ul>
+</section>
+
+<section class="cta-section">
+  <%= link_to "無料で始める", new_user_registration_path, class: "btn btn-success btn-large" %>
+  <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary btn-large" %>
+</section>

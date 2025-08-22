@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile])
   end
 
+  def after_sign_in_path_for(resource)
+    user_path(resource)  # ← ここがマイページに飛ばす部分
+  end
+  
   def after_sign_out_path_for(resource_or_scope)
     about_path
   end

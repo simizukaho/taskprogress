@@ -1,0 +1,163 @@
+body {
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --- 背景バー共通 --- */
+.background-bar {
+  position: fixed;
+  width: 200%;
+  white-space: nowrap;
+  font-size: 1.2rem;
+  padding: 25px 0;   /* バーの太さ*/
+  font-weight: bold;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+  text-transform: uppercase;
+  color: #333; /* これを明るく or 暗くで調整 */
+}
+
+/* --- それぞれの位置・色・アニメーション方向を調整 --- */
+.bar-1 {
+  top: 80px;
+  background-color: #bbdefb;
+  animation: scroll-left 40s linear infinite;
+  color: transparent;
+}
+
+.bar-2 {
+  top: 162px;
+  background-color: #d3eafb;
+  animation: scroll-right 40s linear infinite;
+  color: transparent;
+}
+
+.bar-3 {
+  top: 242px;
+  background-color: #d0e3bb;
+  animation: scroll-left 40s linear infinite;
+  color: transparent;
+}
+
+.bar-4 {
+  top: 322px;
+  background-color: #fbe7aa; /* 明るい黄色 */
+  animation: scroll-right 40s linear infinite;
+  color: transparent;
+}
+
+.bar-5 {
+  top: 402px;
+  background-color: #f8dce6; /* ピンク系 */
+  animation: scroll-left 40s linear infinite;
+  color: transparent;
+}
+
+
+.bar-6 {
+  top: 482px;
+  background-color: #dad3e7;
+  animation: scroll-right 40s linear infinite;
+  color: transparent;
+}
+
+/* --- アニメーション定義 --- */
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+
+
+.post-card {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px 40px;
+  background: #e3f2fd; /* 明るいパステルブルー */
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 123, 255, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  border: 2px solid #1976d2;
+}
+
+.post-card h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0d47a1;
+}
+
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.8px solid #90caf9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #0d47a1;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  border-radius: 20px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+.submit-btn {
+  background-color: #1976d2;
+}
+
+.submit-btn:hover {
+  background-color: #0d47a1;
+}
+
+.back-btn {
+  background-color: #90a4ae;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1.3;
+}
+
+.back-btn:hover {
+  background-color: #607d8b;
+}

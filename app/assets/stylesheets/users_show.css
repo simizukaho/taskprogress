@@ -1,0 +1,254 @@
+/* 汎用カード設定 */
+.user-card {
+  width: 320px;
+  height: 220px;
+  perspective: 1200px;
+  margin: 30px auto;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.user-card:hover .card-inner,
+.tweet-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 表 */
+.card-front {
+  background: #e3f2fd;
+  color: #333;
+}
+
+/* 裏 */
+.card-back {
+  background: #1976d2;
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ボタン */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  margin: 8px;
+  border-radius: 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+}
+
+.edit-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.logout-btn {
+  background: #f44336;
+  color: white;
+}
+
+/*.detail-btn {
+  background: #2196f3;
+  color: white;
+}
+
+.delete-btn {
+  background: #e53935;
+  color: white;
+}
+
+/* 投稿部分 */
+.tweets-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+}
+
+.tweet-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tweet-card {
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.tweet-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tweet-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.tweet-author {
+  font-weight: bold;
+  color: #1976d2;
+  text-decoration: none;
+}
+
+.card-front {
+  background-color: #e3f2fd;
+  color: #000;
+  border: 2px solid #1976d2;
+
+}
+
+.card-back {
+  background-color: #1976d2;
+  color: #fff;
+  transform: rotateY(180deg);
+  gap: 1rem;
+  align-items: center;
+}
+
+.tweet-actions {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.like-btn {
+  color: #e91e63; /* 一覧と揃える */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ----- コメント欄 ----- */
+.comment-wrapper {
+  margin-top: 1rem;
+  background-color: #f1f1f1;
+  padding: 1rem;
+  width: 90%;
+  border-radius: 8px;
+}
+
+.comment {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.comment-textarea {
+  width: 100%;
+  height: 4rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.comment-submit-btn {
+  margin-top: 0.5rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ----- 削除ボタン（コメント） ----- */
+.delete-comment-btn{
+  background-color: #f44336;
+  color: white;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.detail-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+
+
+
+
+
+
+.back-card {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.back-link-btn {
+  display: inline-block;
+  margin: 2rem ;
+  padding: 0.75rem 1.5rem;
+  background-color: #90a4ae;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  
+}
+

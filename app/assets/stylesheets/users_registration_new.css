@@ -1,37 +1,38 @@
-.login-wrapper {
-  min-height: 100vh; /* 画面全体の高さを確保 */
-  display: flex;
-  justify-content: center; /* 横方向中央 */
-  align-items: center; /* 縦方向中央 */
-  padding: 1rem; /* 画面端の余白 */
-  background-color: #f5f7fa; /* 背景色 */
+/* 共通レイアウト */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* ログインボックス */
+.register-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f5f7fa;
+  box-sizing: border-box;
+}
+
+/* 登録フォームのボックス */
 .blank1 {
   background-color: rgba(255, 255, 255, 0.95);
   padding: 3rem 4rem;
   border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
   color: #333;
 }
 
 .blank1 h2 {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   font-weight: 900;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.2rem;
   text-align: center;
   color: #1976d2;
-}
-
-/* 説明テキスト */
-.blank1 p {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-  color: #555;
 }
 
 /* フォームフィールド */
@@ -47,7 +48,7 @@
   user-select: none;
 }
 
-/* 入力欄 */
+.field input[type="text"],
 .field input[type="email"],
 .field input[type="password"] {
   width: 100%;
@@ -59,8 +60,7 @@
   transition: border-color 0.3s ease;
 }
 
-.field input[type="email"]:focus,
-.field input[type="password"]:focus {
+.field input:focus {
   border-color: #42a5f5;
   box-shadow: 0 0 8px #42a5f5aa;
 }
@@ -73,21 +73,18 @@
   cursor: pointer;
 }
 
-
-/* .field label input[type="checkbox"] {
-  cursor: pointer;
-}*/
-
-.field label {
-  display: flex;
-  align-items: center;
+.field label[for="toggle_password_visibility"] {
   font-weight: 500;
   color: #555;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
 }
 
 /* ボタン */
 .actions {
   text-align: center;
+  margin-top: 2rem;
 }
 
 .actions input[type="submit"] {
@@ -109,7 +106,7 @@
   background-color: #1976d2;
 }
 
-/* リンク部分 */
+/* エラーメッセージやリンク */
 .users_shared_links {
   margin-top: 1.5rem;
   text-align: center;
@@ -125,12 +122,6 @@
 .users_shared_links a:hover {
   color: #42a5f5;
 }
-
-/* パスワード表示切替のラベル */
-/*.field label input[type="checkbox"] + span,
-.field label input[type="checkbox"] {
-  cursor: pointer;
-}*/
 
 /* スマホ対応 */
 @media (max-width: 600px) {

@@ -1,80 +1,76 @@
-<h1>マイページ</h1>
+<%= stylesheet_link_tag 'users_show', media: "all" %>
+
+
 
 <div class="user-card">
-  <h2>ユーザー</h2>
-
-<div class="user-info">
-  <p>名前 : <%= @user.name %></p>
-  <p>メールアドレス : <%= @user.email %></p>
-</div>
-
-<% if current_user.id == @user.id %>
- <div class="user-actions">
-  <%= link_to "編集する", edit_user_registration_path %>
-  <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
-  </div>    
-<% end %>
-</div>
-
-
-  <% @tweets.each do |t| %>
-   <!-- カード全体 -->
-   <div class="tweet-card">
-   <!-- 左側：投稿本文 -->
-    <div class="tweet-content-area">
-      <%= link_to t.user.name, user_path(t.user.id), class: "tweet-author" %>
-      <p class="tweet-date">投稿日: <%= t.created_at.strftime("%Y年%m月%d日 %H:%M") %></p>
-      <h3 class="tweet-title"><%= t.title %></h3>
-      <p class="tweet-content"><%= t.name %></p>
+  <div class="card-inner">
+    <!-- 表：ユーザー情報 -->
+    <div class="card-front">
+      <h2>ユーザー</h2>
+      <p>名前 : <%= @user.name %></p>
+      <% if user_signed_in? && current_user.id == @user.id %>
+        <p>メールアドレス : <%= @user.email %></p>
+      <% end %>
+      <p>コメント : <%= @user.profile %></p>
     </div>
+
+    <!-- 裏：操作 -->
+    <div class="card-back">
+      <% if current_user.id == @user.id %>
+        <div class="user-actions">
+          <%= link_to "編集する", edit_user_registration_path, class: "btn edit-btn" %>
+          <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn logout-btn" %>
+        </div>    
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="tweets-container">
+<% @tweets.each do |t| %>
+<div class="tweet-card-wrapper">
+  <div class="tweet-card">
+    <div class="card-inner">
       
-
- <!-- 右側：詳細・削除ボタン --> 
-      <div class="tweet-card-actions">
-      <%= link_to "詳細へ", tweet_path(t.id), class: "btn detail-btn" %>
-
-      <% if user_signed_in? && current_user.id == t.user_id %>
-      <%= button_to "削除する", tweet_path(t.id), method: :delete, class: "btn delete-btn" %>
-      </div>
-      <% end %>  
+      <!-- 表面 -->
+      <div class="card-front">
+        <%= link_to t.user.name, user_path(t.user.id), class: "tweet-author" %>
+        <p class="tweet-date">投稿日: <%= t.created_at.strftime("%Y年%m月%d日 %H:%M") %></p>
+        <h3 id="tweet_title_<%= t.id %>" class="tweet-title"><%= t.title %></h3>
+        <p class="tweet-content"><%= t.name %></p>
       </div>
 
-  <!-- カード外の操作 -->
-<div class="tweet-actions">
- <% if user_signed_in? %>
-   <% if current_user.already_liked?(t) %>
-     <% like = t.likes.find_by(user_id: current_user.id) %>
-     <%= link_to tweet_like_path(t, like), data: { turbo_method: :delete }, class: "like-btn liked" do %>
-       <i class="fas fa-heart"></i><%= t.likes.count %>
-     <% end %>
-   <% else %>
-     <%= link_to tweet_likes_path(t), data: { turbo_method: :post }, class: "like-btn" do %>
-       <i class="far fa-heart"></i><%= t.likes.count %>        
-     <% end %>
-   <% end %>
-  <% else %>
-    <i class="far fa-heart"></i><%= t.likes.count %>
-    <p>いいねの数 = </p><%= t.likes.count %></p>
-  <% end %>     
+      <!-- 裏面 -->
+      <div class="card-back">
+        <%= link_to "詳細へ", tweet_path(t.id), class: "btn detail-btn" %>
+        <% if user_signed_in? && current_user.id == t.user_id %>
+          <%= button_to "削除／完了", tweet_path(t.id), method: :delete, class: "btn delete-btn" %>
+        <% end %>
+      </div>
 
-<!-- コメント表示ボタン -->
-<button type="button" class="toggle-comment" data-tweet-id="<%= t.id %>">
-  <i class="fa-regular fa-comment"></i> <%= t.comments.count %> コメント
-</button>
+    </div>
+  </div>
 
- <!-- コメントエリア -->
+  <!-- カード外：いいね＋コメント -->
+  <div class="tweet-actions">
+    <%= render partial: "tweets/like_section", locals: { tweet: t } %>
+
+    <button type="button" class="toggle-comment" data-tweet-id="<%= t.id %>">
+      <i class="fa-regular fa-comment"></i> <%= t.comments.count %> コメント
+    </button>
+  </div>
+
+  <!-- コメントエリア -->
 <div class="comment-wrapper" id="comment-<%= t.id %>" style="display: none;">
 <p>コメント一覧</p>
 <% if t.comments.any? %>
     <% t.comments.each do |c| %>
-      <div>
-        <strong><%= c.user.name unless c.user.blank? %></strong>：
-        <%= c.content %>
+      <div class="comment">
+        <strong><%= c.user.name unless c.user.blank? %></strong><%= c.content %>
         <% if user_signed_in? && current_user.id == c.user_id %>
-          <%= button_to "削除", tweet_comment_path(t, c), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn delete-comment-btn" %>
+          <%= button_to "削除", tweet_comment_path(t, c), method: :delete, data: { confirm: "本当に削除しますか？" }, class: " delete-comment-btn" %>
         <% end %>
       </div>
-      <br>
     <% end %>
   <% else %>
     <p>まだコメントはありません。</p>
@@ -84,20 +80,17 @@
   <% if user_signed_in? %>
     <%= form_with(model: [t, Comment.new], local: true) do |f| %>
       <%= f.text_area :content, class: "comment-textarea" %>
-      <%= button_tag type: "submit", class: "btn comment-submit-btn" do %>
+      <%= button_tag type: "submit", class: " comment-submit-btn" do %>
         <i class="far fa-comments"></i> コメントする
       <% end %>
     <% end %>
   <% end %>
 </div>
-
-
     <%# if user_signed_in? %>
     <%#= form_with(model: [t, Comment.new], local: true) do |f| %>
       <%#= f.text_area :content %>
       <%#= button_tag type: "submit" do %>
        <%# <i class="far fa-comments"></i> コメントする
-      
       <%# end %>
     <%# end %>
   <%# end %>
@@ -105,9 +98,10 @@
 <% end %>
 </div> <!-- .tweets-container -->
 
+
 <!-- 一覧に戻るリンクをカード風に表示 -->
 <div class="back-card">
-  <%= link_to "Tweet一覧に戻る", tweets_path, class: "back-link-btn" %>
+  <%= link_to "一覧ページに戻る", tweets_path, class: "back-link-btn" %>
 </div>
 
 

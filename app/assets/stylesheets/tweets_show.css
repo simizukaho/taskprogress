@@ -1,0 +1,141 @@
+/* 全体カード */
+.task-card {
+  background: #e3f2fd;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: 'Helvetica Neue', sans-serif;
+  border: 2px solid #1976d2;
+}
+
+/* タイトル入力欄 */
+.editable-title-input {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-bottom: 2px solid #1976d2;
+  background: transparent;
+  padding: 6px 4px;
+  margin-bottom: 16px;
+}
+
+.editable-title-input:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.readonly-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* タスクリスト */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.task-checkbox {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+}
+
+.task-content-input {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  font-size: 1rem;
+  padding: 4px;
+  background: transparent;
+}
+
+.task-content-input:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+/* フォーム系 */
+#new-task-form {
+  margin-top: 20px;
+}
+
+.task-input {
+  width: calc(100% - 120px);
+  padding: 6px 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-right: 8px;
+}
+
+/* ボタン類 */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.add-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.submit-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.back-btn {
+  background-color: #333;
+  color: white;
+  margin-top: 30px;
+}
+
+/* ステータス表示 */
+#save-status {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: gray;
+}
+
+/* レスポンシブ対応（スマホ向け） */
+@media screen and (max-width: 600px) {
+  .task-card {
+    padding: 16px;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  .task-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

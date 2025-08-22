@@ -31,6 +31,7 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      tweet: ツイート
 
     attributes:
       user:
@@ -40,6 +41,8 @@ ja:
         password_confirmation: "パスワード（確認）"
         current_password: "現在のパスワード"
         profile: "プロフィール"
+        tweet:
+        title: タスク内容
 
     
 
@@ -80,3 +83,11 @@ ja:
       create: "%{model}を作成する"
       update: "%{model}を更新する"
       submit: "登録する"
+
+  views:
+    pagination:
+      first: "最初"
+      last: "最後"
+      previous: "前へ"
+      next: "次へ"
+      truncate: "..."

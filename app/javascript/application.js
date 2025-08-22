@@ -7,6 +7,7 @@ import "./toggle_comments"
 import "./task_form_toggle"
 
 
+
 document.addEventListener("DOMContentLoaded", function() {
   const toggle = document.getElementById("toggle_password_visibility");
   const passwordField = document.getElementById("password_field");
@@ -21,3 +22,32 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+
+
+
+function removeOverlay() {
+  const overlay = document.querySelector('.intro-overlay');
+  if (overlay) {
+    overlay.remove();
+    window.removeEventListener('scroll', onUserSkip);
+    window.removeEventListener('click', onUserSkip);
+  }
+}
+
+function onUserSkip() {
+  removeOverlay();
+}
+
+window.addEventListener("load", () => {
+  setTimeout(removeOverlay, 4000); // 4秒で自動削除
+  window.addEventListener('scroll', onUserSkip, { passive: true });
+  window.addEventListener('click', onUserSkip);
+});
+
+setTimeout(removeOverlay, 10000); // フェイルセーフ
+
+
+
+
+

@@ -67,6 +67,11 @@ gem 'sassc-rails'
 
 gem 'devise'
 
+gem 'kaminari'
+
 group :production do
   gem 'pg'
+
+
+  
 end

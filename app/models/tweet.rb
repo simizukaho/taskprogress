@@ -4,4 +4,5 @@ class Tweet < ApplicationRecord
   has_many :liked_users, through: :likes, source: :user
   has_many :comments, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  validates :title, presence: true
 end

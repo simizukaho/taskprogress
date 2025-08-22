@@ -1,62 +1,68 @@
-<h2>課題内容</h2>
+<%= stylesheet_link_tag 'tweets_show', :media => "all" %>
 
-<% if user_signed_in? && current_user.id == @tweet.user_id %>
-  <!-- 入力フォーム：ページ読み込み時から表示 -->
-  <input type="text" 
-         id="tweet-title-input"
-         value="<%= @tweet.title %>" 
-         data-tweet-id="<%= @tweet.id %>" 
-         class="editable-title-input">
-  <p id="save-status" style="color: gray; font-size: 0.9em;"></p>
-<% else %>
+<div class="task-card">
+  <h2>やること</h2>
+
+  <% if user_signed_in? && current_user.id == @tweet.user_id %>
+    <!-- 入力フォーム：ページ読み込み時から表示 -->
+    <input type="text" 
+          id="tweet-title-input"
+          value="<%= @tweet.title %>" 
+          data-tweet-id="<%= @tweet.id %>" 
+          class="editable-title-input">
+    <p id="save-status" style="color: gray; font-size: 0.9em;"></p>
+  <% else %>
   <!-- 他ユーザーには表示のみ -->
-  <p><%= @tweet.title %></p>
-<% end %>
-
-<ul class="task-list">
-  <% @tweet.tasks.each do |task| %>
-    <li>
-      <%= form_with(model: [@tweet, task], method: :patch, html: { class: "task-update-form" }) do |f| %>
-        <%= f.check_box :done, { onchange: "this.form.submit();" } %>
-
-        <!-- ✅ 編集可能なタスク名 -->
-        <%= f.text_field :content, 
-              value: task.content, 
-              class: "task-content-input", 
-              data: { task_id: task.id } %>
-      <% end %>
-
-      <% if user_signed_in? && current_user.id == @tweet.user_id %>
-        <!-- 削除ボタンのみ表示 -->
-        <%= button_to "削除", tweet_task_path(@tweet, task),
-                      method: :delete,
-                      data: { confirm: "本当に削除しますか？" },
-                      class: "btn small-btn delete-btn" %>
-      <% end %>
-    </li>
+    <p><%= @tweet.title %></p>
   <% end %>
-</ul>
 
-<!-- ✅ タスク追加ボタンとフォーム表示コンテナ -->
-<% if user_signed_in? && current_user.id == @tweet.user_id %>
-  <button type="button" id="show-new-task-form" class="btn add-btn">＋ タスクを追加</button>
+  <ul class="task-list">
+    <% @tweet.tasks.each do |task| %>
+      <li>
+        <% if user_signed_in? && current_user.id == @tweet.user_id %>
+          <%= form_with(model: [@tweet, task], method: :patch, html: { class: "task-update-form" }) do |f| %>
+            <%= f.check_box :done, class: "task-checkbox", data: { task_id: task.id } %>
 
-   <!-- 複数フォームを入れるコンテナ -->
-  <div id="task-forms-container"></div>
+            <!-- ✅ 編集可能なタスク名 -->
+            <%= f.text_field :content, 
+                  value: task.content, 
+                  class: "task-content-input", 
+                  data: { task_id: task.id } %>
+          <% end %>
 
+          <!-- 削除ボタンのみ表示 -->
+          <%= button_to "削除", tweet_task_path(@tweet, task),
+                        method: :delete,
+                        data: { confirm: "本当に削除しますか？" },
+                        class: "btn small-btn delete-btn" %>
 
-  <div id="new-task-form" style="display: none; margin-top: 10px;">
-    <%= form_with(model: [@tweet, Task.new], local: true) do |f| %>
-      <%= f.text_field :content, placeholder: "新しいタスク", class: "task-input" %>
-      <%= f.submit "登録", class: "btn submit-btn" %>
+        <% else %>
+          <!-- 他ユーザー用：表示だけ -->
+          <input type="checkbox" disabled <%= "checked" if task.done %> />
+          <span><%= task.content %></span>
+        <% end %>
+      </li>
     <% end %>
-  </div>
-<% end %>
+  </ul>
+     
+  <!-- ✅ タスク追加ボタンとフォーム表示コンテナ -->
+  <% if user_signed_in? && current_user.id == @tweet.user_id %>
+    <button type="button" id="show-new-task-form" class="btn add-btn">＋ タスクを追加</button>
 
-<!-- 戻るボタン群 -->
+    <!-- 複数フォームを入れるコンテナ -->
+    <div id="task-forms-container"></div>
+
+    <div id="new-task-form" style="display: none; margin-top: 10px;">
+      <%= form_with(model: [@tweet, Task.new], local: true) do |f| %>
+        <%= f.text_field :content, placeholder: "新しいタスク(例：○○文字書く)", class: "task-input" %>
+        <%= f.submit "登録", class: "btn submit-btn" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- 戻るボタン群 -->
   <div class="button-container">
-<%= link_to "前のページに戻る", user_path(current_user), class: "btn back-btn" %>
-<%= link_to "Tweet一覧に戻る", tweets_path, class: "list-btn btn" %>
+    <a href="javascript:history.back();" class="btn back-btn">前のページに戻る</a>
   </div>
-
+</div>
 

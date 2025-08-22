@@ -11,14 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
 /*
- *= require_self
- *= require users
- *= require index 
- *= require new
- *= require account
- *= require tasks.edit
- *= require tasks
- *= require users_sessions_new
+
  */
 
 * {
@@ -26,11 +19,11 @@
   margin: 0;
 }
 body {
+  background-color: #f5f7fa;
   font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ",
     Meiryo, "ＭＳ Ｐゴシック", sans-serif;
 }
 
- 
 header {
   background-color: #00acee;
   height: 80px;
@@ -65,7 +58,7 @@ header li {
   margin-right: 40px;
 }
 
-.first-block {
+/*.first-block {
   background-image: url("/assets/first-back.jpg");
   background-size: cover;
   width: 100%;
@@ -113,7 +106,7 @@ header li {
 }
 /*   Second block End   */
 
-.third-block {
+/*.third-block {
   height: 500px;
   background-color: #f05f40;
   text-align: center;

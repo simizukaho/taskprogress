@@ -5,7 +5,6 @@ class CommentsController < ApplicationController
     tweet = Tweet.find(params[:tweet_id])
     comment = tweet.comments.build(comment_params)
     comment.user_id = current_user.id
-    
     if comment.save
       #flash[:success] = "コメントしました"
       redirect_back fallback_location:  tweets_path, notice: "コメントを投稿しました"
@@ -14,6 +13,7 @@ class CommentsController < ApplicationController
       redirect_back fallback_location: tweets_path, alert: "コメントの投稿に失敗しました"
     end
   end
+
 
   def destroy
     comment = Comment.find(params[:id])

@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
 
 
   def index
-  @tweets = Tweet.order(created_at: :desc)
+    @tweets = Tweet.order(created_at: :desc).page(params[:page]).per(6)
   end
 
   #def index
@@ -16,14 +16,23 @@ class TweetsController < ApplicationController
   end
 
   def create
-    @tweet = Tweet.new(tweet_params)
-    @tweet.user_id = current_user.id
-    if @tweet.save
-      redirect_to action: "index"
-    else
-      redirect_to action: "new"
-    end
+  @tweet = current_user.tweets.build(tweet_params)
+  if @tweet.save
+    redirect_to tweets_path, notice: "投稿が完了しました！"
+  else
+    render :new
   end
+end
+
+ # def create
+ #   @tweet = Tweet.new(tweet_params)
+ #   @tweet.user_id = current_user.id
+ #   if @tweet.save
+ #     redirect_to action: "index"
+ #   else
+ #     redirect_to action: "new"
+ #   end
+ # end
 #  def create
 #    tweet = Tweet.new(tweet_params)
 #    tweet.user_id = current_user.id
@@ -49,6 +58,7 @@ class TweetsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @tweet, notice: "更新されました" }
       format.json { render json: { status: "ok" }, status: :ok }
+      format.turbo_stream
     end
   else
     respond_to do |format|
